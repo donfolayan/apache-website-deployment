@@ -14,7 +14,7 @@ you would be deploying same but this time around using ansible.
 1. I setup a multimachine environment on Vagrant by creating a vagrant file and
 editing the vagrant file by adding the following lines of code to my vagrant file
 
-(```
+``
   config.vm.define "master" do |subconfig|
     subconfig.vm.box = "ubuntu/focal64"
     subconfig.vm.hostname = "master"
@@ -33,7 +33,7 @@ editing the vagrant file by adding the following lines of code to my vagrant fil
     subconfig.vm.network "private_network", ip: "192.168.50.12"
   end
 
-```)
+``
 
 2. I generated the ssh keys using ``ssh-keygen`` and copied them into the authorized keys
 of my client nodes.
