@@ -1,0 +1,50 @@
+---
+
+- name: Deploy Website From Github 
+  hosts: all
+  become: yes
+  become_user: root
+
+  vars:
+    github_repo_url: "https://github.com/donfolayan/Altschool-Assignment-3.git"
+    content_dir: "/var/www/html"
+
+  tasks:
+    - name: Install Git
+      package:
+        name: git
+        state: present
+
+    - name: Remove files in the Github Repo Path
+      file:
+        path: /var/www/html/
+        state: absent
+
+    - name: Update Github Repo
+      git:
+        repo: "{{ github_repo_url }}"
+        dest: "{{ content_dir }}"
+        version: main
+      register: git_result
+
+    - name: Install Apache
+      package:
+        name: apache2
+        state: latest
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install httpd
+      package:
+        name: httpd
+        state: latest
+      when: ansible_distribution == "CentOS"
+
+    - name: Start Apache server if not started
+      ansible.builtin.service:
+        name: "{{ 'apache2' if ansible_distribution == 'Ubuntu' else 'httpd' }}"
+        state: started
+        enabled: yes
+
+
+
+
