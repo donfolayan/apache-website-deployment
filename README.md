@@ -50,4 +50,4 @@ of my client nodes.
 5. I pinged the clients nodes via ansible to ensure they were working
 with the ansible adhoc command ``ansible webservers --key-file ~/.ssh/id_rsa  -m ping``
 
-6. I played the playbook with ``ansible-playbook -i inventory deploy.yaml``
+6. I played the playbook with ``ansible-playbook -i inventory project.yaml``
